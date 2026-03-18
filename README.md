@@ -185,6 +185,11 @@ To create a virtual environment on Windows:
 .venv\Scripts\activate
 ```
 
+To install the required packages: 
+```bash
+pip install -r requirements.txt 
+```
+
 ## Training Instructions 
 
 To begin training the model:
