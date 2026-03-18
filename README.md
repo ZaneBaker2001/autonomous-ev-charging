@@ -272,7 +272,6 @@ The below graphs indicate the agent's performance over a variety of metrics:
 ![Service Quality](./service_quality_sample.png)
 ![Grid Exchange](./grid_exchange_sample.png) 
 ![Battery State of Charge](./battery_state_of_charge_sample.png) 
+![Dynamic Electricity Price](./dynamic_electrcity_price_sample.png)
+![Demand, Served Load, and Solar](./demand_served_load_solar.png)
 
-## Conclusion 
-
-The final results demonstrate that the agent learns a materially better operating strategy over time, transitioning from highly negative returns to consistently positive evaluation performance.
