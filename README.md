@@ -267,7 +267,11 @@ Key training milestones included:
 | 35 | 143,360 | 71.989 |
 | 37 | 150,000 | 83.403 |
 
-![Training Performance Over Time](./ev_charging_training_graph.png)
+The below graphs indicate the agent's performance over a variety of metrics:
+
+![Service Quality](./service_quality_sample.png)
+![Grid Exchange](./grid_exchange_sample.png) 
+![Battery State of Charge](./battery_state_of_charge_sample.png) 
 
 ## Conclusion 
 
