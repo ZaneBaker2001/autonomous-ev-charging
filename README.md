@@ -187,7 +187,7 @@ To create a virtual environment on Windows:
 
 To install the required packages: 
 ```bash
-pip install -r requirements.txt 
+pip3 install -r requirements.txt 
 ```
 
 ## Training Instructions 
@@ -222,7 +222,7 @@ checkpoints/ppo_ev_charging_final.pt
 To evaluate the final model:
 
 ```bash
-python evaluate.py
+python3 evaluate.py
 ``` 
 
 Doing this will:
