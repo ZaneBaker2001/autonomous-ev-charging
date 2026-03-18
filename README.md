@@ -273,5 +273,5 @@ The below graphs indicate the agent's performance over a variety of metrics:
 ![Grid Exchange](./grid_exchange_sample.png) 
 ![Battery State of Charge](./battery_state_of_charge_sample.png) 
 ![Dynamic Electricity Price](./dynamic_electrcity_price_sample.png)
-![Demand, Served Load, and Solar](./demand_served_load_solar.png)
+![Demand, Served Load, and Solar](./demand_served_load_solar_sample.png)
 
