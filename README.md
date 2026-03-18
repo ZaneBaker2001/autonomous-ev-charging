@@ -267,11 +267,22 @@ Key training milestones included:
 | 35 | 143,360 | 71.989 |
 | 37 | 150,000 | 83.403 |
 
-The below graphs indicate the agent's performance over a variety of metrics:
+## Behavior Analysis 
+
+The below graphs illustrate the agent's behavior across a variety of categories:
 
 ![Service Quality](./service_quality_sample.png)
 ![Grid Exchange](./grid_exchange_sample.png) 
 ![Battery State of Charge](./battery_state_of_charge_sample.png) 
-![Dynamic Electricity Price](./dynamic_electrcity_price_sample.png)
+![Dynamic Electricity Price](./dynamic_electricity_price_sample.png)
 ![Demand, Served Load, and Solar](./demand_served_load_solar_sample.png)
+
+These graphs reveal that:
+
+- The agent successfully learns to prioritize economic objectives, frequently exporting excess solar and avoiding expensive grid imports.
+- However, the learned policy exhibits limited temporal planning, as the battery is often discharged early and not recharged to exploit later high-price periods.
+- This suggests the current reward formulation under-incentivizes energy arbitrage, highlighting a key area for improvement.
+- Despite this, the agent maintains generally high service levels, with only brief spikes in unmet demand. 
+
+
 
