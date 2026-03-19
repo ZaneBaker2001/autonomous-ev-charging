@@ -5,20 +5,20 @@
 
 Modern EV charging sites are increasingly deployed with local solar and battery storage. Operating these systems well is hard because the controller must continuously balance competing objectives:
 
-- serve as much EV demand as possible,
-- reduce costly grid imports during high-price periods,
-- use the battery strategically,
-- export excess solar when profitable,
-- avoid excessive battery cycling,
-- remain smooth and stable in control decisions.
+- Serve as much EV demand as possible
+- Reduce costly grid imports during high-price periods
+- Use the battery strategically
+- Export excess solar when profitable
+- Avoid excessive battery cycling
+- Remain smooth and stable in control decisions
 
 This project formulates that problem as a **continuous-control reinforcement learning task** and trains a **Proximal Policy Optimization (PPO)** agent to manage the site over a daily operating horizon.
 
 Each episode represents a full day at **15-minute resolution**. At each timestep, the agent chooses:
 
-1. battery dispatch,
-2. charging allocation,
-3. grid exchange preference.
+1. Battery dispatch
+2. Charging allocation
+3. Grid exchange preference
 
 The environment then simulates site power balance, cost/revenue, battery state of charge, and service quality.
 
@@ -43,11 +43,11 @@ The simulated site includes:
 
 The agent must learn when to:
 
-- charge the battery using cheap energy or solar surplus,
-- discharge the battery to reduce expensive grid purchases,
-- serve more or less instantaneous EV demand depending on economics and constraints,
-- export surplus solar energy,
-- avoid unstable or overly aggressive control actions.
+- Charge the battery using cheap energy or solar surplus
+- Discharge the battery to reduce expensive grid purchases
+- Serve more or less instantaneous EV demand depending on economics and constraints
+- Export surplus solar energy
+- Avoid unstable or overly aggressive control actions
 
 ---
 
@@ -105,10 +105,10 @@ The reward is designed around real operational economics.
 
 The agent is penalized for:
 
-- grid import cost,
-- unmet EV charging demand,
-- battery degradation from cycling,
-- abrupt action changes.
+- Grid import cost
+- Unmet EV charging demand
+- Battery degradation from cycling
+- Abrupt action changes
 
 The agent is rewarded through:
 
@@ -116,10 +116,10 @@ The agent is rewarded through:
 
 Formally, reward is the negative of:
 
-- import cost
-- unmet demand penalty
-- battery degradation cost
-- smoothing penalty
+- Import cost
+- Unmet demand penalty
+- Battery degradation cost
+- Smoothing penalty
 
 plus export revenue.
 
@@ -135,23 +135,21 @@ The learning algorithm is **Proximal Policy Optimization (PPO)** implemented dir
 
 The actor-critic network uses:
 
-- shared MLP encoder,
-- policy head for continuous actions,
-- value head for state value estimation,
-- learned log standard deviation for Gaussian exploration.
+- Shared MLP encoder
+- Policy head for continuous actions
+- Value head for state value estimation
+- Learned log standard deviation for Gaussian exploration
 
 ### PPO details
 
 The implementation includes:
 
-- clipped policy objective,
-- generalized advantage estimation (GAE),
-- entropy bonus,
-- value loss,
-- gradient clipping,
-- tanh-squashed continuous actions.
-
-This keeps the code educational and self-contained while still being strong enough to solve the task.
+- Clipped policy objective
+- Generalized advantage estimation (GAE)
+- Entropy bonus
+- Value loss
+- Gradient clipping
+- Tanh-squashed continuous actions
 
 ---
 
@@ -182,6 +180,7 @@ source .venv/bin/activate
 
 To create a virtual environment on Windows:
 ```bash
+python3 -m venv .venv
 .venv\Scripts\activate
 ```
 
@@ -200,10 +199,10 @@ python3 train.py
 
 Doing this will:
 
-	• Initialize the custom EV charging environment
-	• Train a PPO agent
-	• Print update metrics during training
-	• Save checkpoints in checkpoints/
+- Initialize the custom EV charging environment
+- Train a PPO agent
+- Print update metrics during training
+- Save checkpoints in checkpoints/
 
 During training, checkpoints are saved to:
 
@@ -227,31 +226,42 @@ python3 evaluate.py
 
 Doing this will:
 	
-    • Load the trained model
-	• Evaluate it over multiple episodes
-	• Print episodic returns
-	• Generate plots 
+- Load the trained model
+- Evaluate it over multiple episodes
+- Print episodic returns
+- Generate plots 
 
 ## Visualizations 
 
 The generated plots visualize:
 
-    • Demand vs served load vs solar
-	• Electricity price
-	• Battery state of charge
-	• Grid import/export
-	• Unmet charging demand
+- Demand vs served load vs solar
+- Electricity price
+- Battery state of charge
+- Grid import/export
+- Unmet charging demand
+
+## Behavior Analysis 
+
+The below graphs illustrate the agent's behavior across a variety of categories:
+
+![Service Quality](./service_quality_sample.png)
+![Grid Exchange](./grid_exchange_sample.png) 
+![Battery State of Charge](./battery_state_of_charge_sample.png) 
+![Dynamic Electricity Price](./dynamic_electricity_price_sample.png)
+![Demand, Served Load, and Solar](./demand_served_load_solar_sample.png)
+
+The key takeaways from these graphs are:
+
+- The agent learns to focus on the economics of the system, often selling extra solar power back to the grid and steering clear of costly grid purchases.
+- At the same time, its planning over time is still limited. It tends to use up the battery too early instead of saving or recharging it for later periods. 
+- That points to a gap in the current reward design: it does not seem to encourage energy arbitrage strongly enough, which makes this an important area to improve.
+- Even so, overall service remains strong, with unmet demand appearing only in short-lived spikes.
 
 ## Results 
 
 Training was run for 150,000 timesteps.
 
-The PPO agent improved substantially over training:
-
-	• Early training began with very poor returns, around -799 average episodic return.
-	• Returns steadily improved as the agent learned basic operating behavior.
-	• Performance crossed into positive average return by update 25.
-	• Final training reached 83.403 average episodic return by the last update.
 
 Key training milestones included:
 
@@ -267,22 +277,14 @@ Key training milestones included:
 | 35 | 143,360 | 71.989 |
 | 37 | 150,000 | 83.403 |
 
-## Behavior Analysis 
+The PPO agent improved substantially over training:
 
-The below graphs illustrate the agent's behavior across a variety of categories:
+- Early training began with very poor returns, around -799 average episodic return.
+- Returns steadily improved as the agent learned basic operating behavior.
+- Performance crossed into positive average return by update 25.
+- Final training reached 83.403 average episodic return by the last update.
 
-![Service Quality](./service_quality_sample.png)
-![Grid Exchange](./grid_exchange_sample.png) 
-![Battery State of Charge](./battery_state_of_charge_sample.png) 
-![Dynamic Electricity Price](./dynamic_electricity_price_sample.png)
-![Demand, Served Load, and Solar](./demand_served_load_solar_sample.png)
 
-These graphs reveal that:
-
-- The agent successfully learns to prioritize economic objectives, frequently exporting excess solar and avoiding expensive grid imports.
-- However, the learned policy exhibits limited temporal planning, as the battery is often discharged early and not recharged to exploit later high-price periods.
-- This suggests the current reward formulation under-incentivizes energy arbitrage, highlighting a key area for improvement.
-- Despite this, the agent maintains generally high service levels, with only brief spikes in unmet demand. 
 
 
 
