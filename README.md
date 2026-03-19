@@ -24,6 +24,56 @@ The environment then simulates site power balance, cost/revenue, battery state o
 
 ---
 
+## Relevance  
+
+Efficient control of EV charging sites can:
+
+- Reduce grid strain during peak demand
+- Improve utilization of renewable energy
+- Lower operational costs for site operators
+- Enable scalable electrification infrastructure 
+
+## Highlights
+
+- PPO agent for real-time EV energy optimization
+- Achieves **+83.4 average episodic return**
+- Balances cost, demand satisfaction, and battery health
+- Fully custom simulation environment (solar, storage, demand)
+
+## Quick Start  
+
+To setup the project locally:
+
+```bash
+git clone https://github.com/ZaneBaker2001/autonomous-ev-charging.git
+cd autonomous-ev-charging
+python3 -m venv .venv
+source .venv/bin/activate 
+pip3 install -r requirements.txt 
+python3 train.py
+```
+
+This will:
+
+- Install the project on your local device. 
+- Train a PPO agent. 
+- Print update metrics during training
+- Save checkpoints in checkpoints/
+
+To evaluate the final model:
+
+```bash
+python3 evaluate.py
+```
+
+This will:
+	
+- Load the trained model
+- Evaluate it over multiple episodes
+- Print episodic returns
+- Generate plots 
+
+
 ## Problem formulation
 
 ### Objective
@@ -169,68 +219,6 @@ autonomous-ev-charging/
     └── seed.py
 ```
 
-## Installation 
-
-To create a virtual environment on MacOS or Linux: 
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-To create a virtual environment on Windows:
-```bash
-python3 -m venv .venv
-.venv\Scripts\activate
-```
-
-To install the required packages: 
-```bash
-pip3 install -r requirements.txt 
-```
-
-## Training Instructions 
-
-To begin training the model:
-
-```bash
-python3 train.py
-```
-
-Doing this will:
-
-- Initialize the custom EV charging environment
-- Train a PPO agent
-- Print update metrics during training
-- Save checkpoints in checkpoints/
-
-During training, checkpoints are saved to:
-
-```text
-checkpoints/ppo_ev_charging.pt
-```
-
-The final model is saved to: 
-
-```text
-checkpoints/ppo_ev_charging_final.pt
-```
-
-## Evaluation Instructions 
-
-To evaluate the final model:
-
-```bash
-python3 evaluate.py
-``` 
-
-Doing this will:
-	
-- Load the trained model
-- Evaluate it over multiple episodes
-- Print episodic returns
-- Generate plots 
-
 ## Visualizations 
 
 The generated plots visualize:
@@ -241,9 +229,9 @@ The generated plots visualize:
 - Grid import/export
 - Unmet charging demand
 
-## Behavior Analysis 
+## Example Behavior  
 
-The below graphs illustrate the agent's behavior across a variety of categories:
+The below plots illustrate the agent's behavior across a variety of categories, as observed from a sample run:
 
 ![Service Quality](./service_quality_sample.png)
 ![Grid Exchange](./grid_exchange_sample.png) 
@@ -251,7 +239,7 @@ The below graphs illustrate the agent's behavior across a variety of categories:
 ![Dynamic Electricity Price](./dynamic_electricity_price_sample.png)
 ![Demand, Served Load, and Solar](./demand_served_load_solar_sample.png)
 
-The key takeaways from these graphs are:
+The key takeaways from these plots are:
 
 - The agent learns to focus on the economics of the system, often selling extra solar power back to the grid and steering clear of costly grid purchases.
 - At the same time, its planning over time is still limited. It tends to use up the battery too early instead of saving or recharging it for later periods. 
