@@ -156,7 +156,7 @@ The implementation includes:
 ## Repository structure
 
 ```text
-ev-charging-rl/
+autonomous-ev-charging/
 ├── README.md
 ├── requirements.txt
 ├── train.py
