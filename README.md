@@ -232,11 +232,11 @@ The generated plots visualize:
 
 The below plots illustrate the agent's behavior across a variety of categories, as observed from a sample run:
 
-![Service Quality](./service_quality_sample.png)
-![Grid Exchange](./grid_exchange_sample.png) 
-![Battery State of Charge](./battery_state_of_charge_sample.png) 
-![Dynamic Electricity Price](./dynamic_electricity_price_sample.png)
-![Demand, Served Load, and Solar](./demand_served_load_solar_sample.png)
+![Demand, Served Load, and Solar](./sample_plots/demand_served_load_solar_sample.png)
+![Dynamic Electricity Price](./sample_plots/dynamic_electricity_price_sample.png)
+![Grid Exchange](./sample_plots/grid_exchange_sample.png) 
+![Service Quality](./sample_plots/service_quality_sample.png)
+![Battery State of Charge](./sample_plots/battery_state_of_charge_sample.png) 
 
 The key takeaways from these plots are:
 
