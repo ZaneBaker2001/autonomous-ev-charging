@@ -55,10 +55,10 @@ python3 train.py
 
 This will:
 
-- Install the project on your local device. 
-- Train a PPO agent. 
+- Install the project on your local device 
+- Train a PPO agent 
 - Print update metrics during training
-- Save checkpoints in checkpoints/
+- Save checkpoints in the checkpoints directory 
 
 To evaluate the final model:
 
@@ -111,9 +111,9 @@ Each episode is one day:
 
 The environment creates stochastic daily profiles for:
 
-- electricity price,
-- solar generation,
-- EV demand.
+- Electricity price
+- Solar generation
+- EV demand
 
 This means the policy must learn a **general operating strategy**, not memorize a single deterministic schedule.
 
@@ -121,15 +121,15 @@ This means the policy must learn a **general operating strategy**, not memorize 
 
 The state includes:
 
-- sine/cosine time-of-day encoding,
-- current electricity price,
-- current solar generation,
-- current EV charging demand,
-- battery state of charge,
-- previous battery action,
-- previous charging action,
-- rolling average price,
-- rolling average demand.
+- Sine/cosine time-of-day encoding
+- Current electricity price
+- Current solar generation
+- Current EV charging demand
+- Battery state of charge
+- Previous battery action
+- Previous charging action
+- Rolling average price
+- Rolling average demand
 
 These features give the agent both instantaneous context and some short-term temporal signal.
 
@@ -170,8 +170,7 @@ Formally, reward is the negative of:
 - Unmet demand penalty
 - Battery degradation cost
 - Smoothing penalty
-
-plus export revenue.
+- Export revenue 
 
 This gives a meaningful optimization objective: operate the site profitably while maintaining charging service.
 
