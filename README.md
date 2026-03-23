@@ -103,7 +103,7 @@ The agent must learn when to:
 
 ## Environment design
 
-The below diagram outlines the design of the agent.
+The below diagram outlines the design of the environment.
 
 ![Environment Diagram](./sample_plots/environment_diagram.png)
 
